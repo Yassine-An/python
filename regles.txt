@@ -1,0 +1,8 @@
+REGLES DU JEUX
+But : Aligner 3 symboles (X ou O) avant l'adversaire.
+Grille : 3x3 cases numurer de 1 a 9.
+Tour : Le joueur X commence, puis on alterne.
+Fin :
+    Victoire : Un alignement (ligne, colonne ou diagonale).
+    Egalite : Grille pleine sans gagnant.
+    
