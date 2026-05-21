@@ -5,68 +5,69 @@ def main_menu():
     print("1_BUYER")
     print("2_SELLER")
     print("0_EXIT")
-    try:
-        choix=int(input("Entrer votre choix : "))
-        if choix in [0,1,2]:
-           return choix
-        else:
-            print("invalid choix")
-            return main_menu()
-    except ValueError:
-        print("invalid input")
-        return main_menu()
+    while True:
+        try:
+            choix=int(input("Entrer votre choix : "))
+            if choix in [0,1,2]:
+              return choix
+            else:
+               print("invalid choix")
+        except ValueError:
+            print("invalid input")
 def buyer_menu():
     print("Hello BUYER")
     print("1_Add to card")
     print("2_Remove from card")
     print("0_EXIT")
-    try:
-        choix=int(input("Entrer votre choix : "))
-        if choix in [0,1,2]:
-           return choix
-        else:
-            print("invalid choix")
-            return buyer_menu()
-    except ValueError:
-        print("invalid input")
-        return buyer_menu()
+    while True:
+        try:
+            choix=int(input("Entrer votre choix : "))
+            if choix in [0,1,2]:
+              return choix
+            else:
+               print("invalid choix")
+        except ValueError:
+            print("invalid input")
 def seller_menu():
     print("Hello SELLLER")
     print("1_Add item")
     print("2_update item")
     print("3_delete item")
     print("0_EXIT")
-    try:
-        choix=int(input("Entrer votre choix : "))
-        if choix in [0,1,2,3]:
-           return choix
-        else:
-            print("invalid choix")
-            return seller_menu()
-    except ValueError:
-        print("invalid input")
-        return seller_menu()
+    while True:
+        try:
+            choix=int(input("Entrer votre choix : "))
+            if choix in [0,1,2,3]:
+              return choix
+            else:
+               print("invalid choix")
+        except ValueError:
+            print("invalid input")
 def display_list():
-    with open("products.json","r") as file:
-        products=json.load(file)
-    for item in products:
-        print(item)
+    try:
+        with open("products.json", "r") as file:
+            products = json.load(file)
+        for item in products:
+            print(item)
+    except FileNotFoundError:
+        print("Aucun produit disponible pour le moment.")
 def add_to_card():
     global card
     try:
         id=int(input("enter item id : "))
     except ValueError:
         print("invalid input")
+        return
     with open("products.json","r") as file:
         products=json.load(file)
     for item in products:
         if item["id"]==id:
             card.append(item)
     validate=input("valider votre commande y/n : ")
-    if validate=="y":
+    if validate.lower()=="y":
         valide()
     else:
-       return buyer_menu()
+       return
 def remove_from_card():
     global card
     if not card:
@@ -94,13 +95,16 @@ def valide():
     with open("card.json","w",encoding="utf-8") as file:
         json.dump(card,file,indent=4)
     card.clear()
-    return buyer_menu()
 def additem():
     donnes=[]
     with open("products.json","r",encoding="utf-8") as fichier:
         donnes=json.load(fichier)
     item_name=input("enter item name : ")
-    item_price=int(input("entrer item price : "))
+    try :
+        item_price=int(input("entrer item price : "))
+    except ValueError:
+        print("invalid input")
+        return
     if len(donnes)==0:
         new_donnes={"id":1,"name":item_name,"price":item_price}
     else:
@@ -108,20 +112,32 @@ def additem():
     donnes.append(new_donnes)
     with open("products.json","w",encoding="utf-8") as fichier:
             json.dump(donnes,fichier,indent=4)
-    return seller_menu()
+    return
 def update():
-    id=int(input("entrer l'identifiant : "))
+    try :
+        id=int(input("entrer l'identifiant : "))
+    except ValueError:
+        print("invalid input")
+        return
     with open("products.json","r",encoding="utf-8") as file:
         data=json.load(file)
     for item in data:
         if item["id"]==id:
             item["name"]=input("enter new name : ")
-            item["price"]=int(input("enter new price : "))
+            try:
+                item["price"]=int(input("enter new price : "))
+            except ValueError:
+                print("price invalid")
+                return
     with open("products.json","w",encoding="utf-8") as file:
         json.dump(data,file,indent=4)
-    return seller_menu()
+    return
 def delete():
-    id=int(input("entrer l'identifiant : "))
+    try :
+        id=int(input("entrer l'identifiant : "))
+    except ValueError:
+        print("invalid input")
+        return
     new_data=[]
     with open("products.json","r",encoding="utf-8") as file:
         data=json.load(file)
@@ -132,7 +148,7 @@ def delete():
             new_data.append(item)
     with open("products.json","w",encoding="utf-8") as file:
         json.dump(new_data,file,indent=4)
-    return seller_menu()
+    return 
 def main():
     while True:
         choix_principal = main_menu()

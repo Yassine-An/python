@@ -1,8 +1,8 @@
 [
     {
         "id": 1,
-        "name": "samsung",
-        "price": 5000
+        "name": "liziyat",
+        "price": 200
     },
     {
         "id": 2,
@@ -15,8 +15,8 @@
         "price": 10000
     },
     {
-        "id": 4,
-        "name": "hwawei",
+        "id": 5,
+        "name": "phone",
         "price": 10000
     }
 ]

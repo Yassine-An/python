@@ -3,10 +3,5 @@
         "id": 1,
         "name": "samsung",
         "price": 5000
-    },
-    {
-        "id": 2,
-        "name": "casque",
-        "price": 150
     }
 ]
