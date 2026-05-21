@@ -35,7 +35,7 @@ def seller_menu():
     print("1_Add item")
     print("2_update item")
     print("3_delete item")
-    print("4_EXIT")
+    print("0_EXIT")
     try:
         choix=int(input("Entrer votre choix : "))
         if choix in [0,1,2,3]:
@@ -68,12 +68,10 @@ def add_to_card():
     else:
        return buyer_menu()
 def remove_from_card():
-   def remove_from_card():
     global card
     if not card:
         print("Your card is empty.")
         return
-    
     print("Current card:", card)
     try:
         idx = int(input("enter item id to remove : "))
