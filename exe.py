@@ -872,59 +872,154 @@ merge.close()
 #     writercsv.writerow(line)
 #     print
 # fichier.close()
-def addEtudiant():
-    donnes=[]
-    with open("exe.json","r",encoding="utf-8") as fichier:
-        donnes=json.load(fichier)
-    name=input("entrer le nom de l'étudiant : ")
-    age=int(input("entrer l'age de l'étudiant : "))
-    new_donnes={"name":name,"age":age}
-    donnes.append(new_donnes)
-    with open("exe.json","w",encoding="utf-8") as fichier:
-            json.dump(donnes,fichier,indent=4)
-def update():
-    name=input("entrer le nom de l'étudiant : ")
-    with open("exe.json","r",encoding="utf-8") as fichier:
-        donnes=json.load(fichier)
-        for item in donnes:
-            if item["name"]==name:
-                name=input("new name : ")
-                age=int(input("new age : "))
-                item["name"]=name
-                item["age"]=age
-    with open("exe.json","w",encoding="utf-8") as fichier:
-        json.dump(donnes,fichier,indent=4)
-def delete():
-    new_donnes=[]
-    name=input("entrer le nom de l'étudiant : ")
-    with open("exe.json","r",encoding="utf-8") as fichier:
-        donnes=json.load(fichier)
-        for item in donnes :
-            if name!=item["name"]:
-                new_donnes.append(item)
-    with open("exe.json","w",encoding="utf-8") as fichier:
-        json.dump(new_donnes,fichier,indent=4)        
-def affiche():
-    i=1
-    with open("exe.json","r",encoding="utf-8") as fichier:
-        donnes=json.load(fichier)
-    for item in donnes:
-        print(f"etudiant {i} : ",item)
-        i+=1
-while True:
-    print("1_Ajouter Etudiant")
-    print("2_Update")
-    print("3_delete")
-    print("4_afficher")
-    print("0_break")
-    choix=int(input("entrer votre choix : "))
-    match(choix):
-        case 1:addEtudiant()
-        case 2:update()
-        case 3:delete()
-        case 4:affiche()
-        case 0:break
-
-
-
-    
+# def addEtudiant():
+#     donnes=[]
+#     with open("exe.json","r",encoding="utf-8") as fichier:
+#         donnes=json.load(fichier)
+#     name=input("entrer le nom de l'étudiant : ")
+#     age=int(input("entrer l'age de l'étudiant : "))
+#     new_donnes={"name":name,"age":age}
+#     donnes.append(new_donnes)
+#     with open("exe.json","w",encoding="utf-8") as fichier:
+#             json.dump(donnes,fichier,indent=4)
+# def update():
+#     name=input("entrer le nom de l'étudiant : ")
+#     with open("exe.json","r",encoding="utf-8") as fichier:
+#         donnes=json.load(fichier)
+#         for item in donnes:
+#             if item["name"]==name:
+#                 name=input("new name : ")
+#                 age=int(input("new age : "))
+#                 item["name"]=name
+#                 item["age"]=age
+#     with open("exe.json","w",encoding="utf-8") as fichier:
+#         json.dump(donnes,fichier,indent=4)
+# def delete():
+#     new_donnes=[]
+#     name=input("entrer le nom de l'étudiant : ")
+#     with open("exe.json","r",encoding="utf-8") as fichier:
+#         donnes=json.load(fichier)
+#         for item in donnes :
+#             if name!=item["name"]:
+#                 new_donnes.append(item)
+#     with open("exe.json","w",encoding="utf-8") as fichier:
+#         json.dump(new_donnes,fichier,indent=4)        
+# def affiche():
+#     i=1
+#     with open("exe.json","r",encoding="utf-8") as fichier:
+#         donnes=json.load(fichier)
+#     for item in donnes:
+#         print(f"etudiant {i} : ",item)
+#         i+=1
+# while True:
+#     print("1_Ajouter Etudiant")
+#     print("2_Update")
+#     print("3_delete")
+#     print("4_afficher")
+#     print("0_break")
+#     choix=int(input("entrer votre choix : "))
+#     match(choix):
+#         case 1:addEtudiant()
+#         case 2:update()
+#         case 3:delete()
+#         case 4:affiche()
+#         case 0:break
+# try:
+#     num1=int(input("enter first number : "))
+#     num2=int(input("enter second number : "))
+#     result=num1/num2
+#     print(result)
+# except ZeroDivisionError:
+#     print("impossible de diriver par 0")
+# except ValueError:
+#     print("invalid input")
+# while True:
+#     num1=int(input("enter first number : "))
+#     num2=int(input("enter second number : "))
+#     try:
+#        result=num1/num2
+#        print(result)
+#        break
+#     except ZeroDivisionError:
+#        print("impossible de diriver par 0")
+# def drivier():
+#     a=int(input("enter first number : "))
+#     b=int(input("enter second number : "))
+#     try:
+#         return a/b
+#     except ZeroDivisionError:
+#         print("impossile de diriver par 0")
+#         return drivier()
+# print(drivier())
+# ////////////////////////////////
+# while True:
+#     num1=int(input("enter first number : "))
+#     num2=int(input("enter second number : "))
+#     try:
+#        result=num1/num2
+#        print(result)
+#     except ZeroDivisionError:
+#        print("impossible de diriver par 0")
+    # finally:
+    #     print("abc")
+    #     executed in all cases
+# num1=int(input("enter first number : "))
+# num2=int(input("enter second number : "))
+# if num2==0:
+#     raise ZeroDivisionError("impossible de diriver par 0")
+# else:
+#     result=num1/num2
+#     print(result)
+file_name="users.json"
+def read_json(file):
+    try:  
+        with open(file, "r", encoding="utf-8") as fichier:
+            return json.load(fichier)
+    except FileNotFoundError:
+        return [] 
+def write_json(file,data):
+    with open(file,"w",encoding="utf-8") as fichier:
+        json.dump(data,fichier,indent=4)
+    return 
+def show_menu():
+    print("HEELLOOOO USEEEEEER")
+    print("1_Login as admin")
+    print("2_Create account")
+    print("0_Exit")
+    while True:
+        try:
+            choix=int(input("Enter ur choise... "))
+            if choix in [0,1,2]:
+               return choix
+            else:
+               print("Please choose :) ")
+        except ValueError:
+           print("input invalid")
+def login():
+    username=input("Enter usename : ")
+    passwd=input("Enter ur password : ")
+    info=read_json(file_name)
+    for user in info:
+        if user["username"]==username and user["password"]==passwd:
+            print("Hello admin :) ")
+            return
+    print("Email or password inccorect")
+def create_account():
+    username=input("Enter usename : ")
+    passwd=input("Enter ur password : ")
+    info=read_json(file_name)
+    new_info={"username":username,"password":passwd}
+    info.append(new_info)
+    write_json(file_name,info)
+    return
+def main():
+    while True:
+        choix=show_menu()
+        if choix==0 :
+           print("Are u leaving :) ")
+           break
+        elif choix==1:
+           login()
+        elif choix==2:
+           create_account()
+main()
