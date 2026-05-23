@@ -2,6 +2,7 @@ import math
 import array
 import csv
 import json
+import random
 '''
 i = 1
 s=0
@@ -1004,14 +1005,52 @@ def login():
             print("Hello admin :) ")
             return
     print("Email or password inccorect")
-def create_account():
-    username=input("Enter usename : ")
-    passwd=input("Enter ur password : ")
+    try:
+        choix=input("Did u forget ur passwd y/n ...")
+    except ValueError:
+        print("invalid input")
+    if choix=="y":
+        return reset_passwd()
+    elif choix=="n":
+        return
+def reset_passwd():
+    try:
+        code=int(input("Enter ur verification code : "))
+    except ValueError:
+        print("invalid input")
+        return
     info=read_json(file_name)
-    new_info={"username":username,"password":passwd}
-    info.append(new_info)
-    write_json(file_name,info)
-    return
+    for user in info:
+        if user["verif-code"]==code:
+            try:
+                user["password"] = input("enter new password : ")
+            except ValueError:
+                print("input invalid")
+                return
+            write_json(file_name, info)
+            print("Password updated successfully!")
+            return
+    print("User not found :( ")
+def create_account():
+    while True:
+        username=input("Enter usename : ")
+        passwd=input("Enter ur password : ")
+        code=random.randint(100000,999999)
+        is_exist=False
+        users=read_json(file_name)
+        for user in users:
+            if user['username']==username:
+                is_exist=True
+        if is_exist:
+            print("Username already exist :) ")
+        elif username.isalpha():
+           info=read_json(file_name)
+           new_info={"username":username,"password":passwd,"verif-code":code}
+           info.append(new_info)
+           write_json(file_name,info)
+           return new_info
+        else:
+            print("username must only have letters")
 def main():
     while True:
         choix=show_menu()
@@ -1021,5 +1060,7 @@ def main():
         elif choix==1:
            login()
         elif choix==2:
-           create_account()
+           user=create_account()
+           print(f"{user['username']} ur account has been created this is ur verification code {user['verif-code']}")
+           print("Don't forget it !!!!! took a screen :) ")
 main()
