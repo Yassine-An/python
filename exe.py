@@ -1003,7 +1003,7 @@ def login():
     for user in info:
         if user["username"]==username and user["password"]==passwd:
             print("Hello admin :) ")
-            return
+            exit()
     print("Email or password inccorect")
     try:
         choix=input("Did u forget ur passwd y/n ...")
