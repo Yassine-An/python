@@ -2,6 +2,7 @@ import math
 import array
 import csv
 import json
+import random
 '''
 i = 1
 s=0
@@ -924,7 +925,149 @@ merge.close()
 #         case 3:delete()
 #         case 4:affiche()
 #         case 0:break
+<<<<<<< HEAD
 
 
 
     
+=======
+# try:
+#     num1=int(input("enter first number : "))
+#     num2=int(input("enter second number : "))
+#     result=num1/num2
+#     print(result)
+# except ZeroDivisionError:
+#     print("impossible de diriver par 0")
+# except ValueError:
+#     print("invalid input")
+# while True:
+#     num1=int(input("enter first number : "))
+#     num2=int(input("enter second number : "))
+#     try:
+#        result=num1/num2
+#        print(result)
+#        break
+#     except ZeroDivisionError:
+#        print("impossible de diriver par 0")
+# def drivier():
+#     a=int(input("enter first number : "))
+#     b=int(input("enter second number : "))
+#     try:
+#         return a/b
+#     except ZeroDivisionError:
+#         print("impossile de diriver par 0")
+#         return drivier()
+# print(drivier())
+# ////////////////////////////////
+# while True:
+#     num1=int(input("enter first number : "))
+#     num2=int(input("enter second number : "))
+#     try:
+#        result=num1/num2
+#        print(result)
+#     except ZeroDivisionError:
+#        print("impossible de diriver par 0")
+    # finally:
+    #     print("abc")
+    #     executed in all cases
+# num1=int(input("enter first number : "))
+# num2=int(input("enter second number : "))
+# if num2==0:
+#     raise ZeroDivisionError("impossible de diriver par 0")
+# else:
+#     result=num1/num2
+#     print(result)
+file_name="users.json"
+def read_json(file):
+    try:  
+        with open(file, "r", encoding="utf-8") as fichier:
+            return json.load(fichier)
+    except FileNotFoundError:
+        return [] 
+def write_json(file,data):
+    with open(file,"w",encoding="utf-8") as fichier:
+        json.dump(data,fichier,indent=4)
+    return 
+def show_menu():
+    print("HEELLOOOO USEEEEEER")
+    print("1_Login as admin")
+    print("2_Create account")
+    print("0_Exit")
+    while True:
+        try:
+            choix=int(input("Enter ur choise... "))
+            if choix in [0,1,2]:
+               return choix
+            else:
+               print("Please choose :) ")
+        except ValueError:
+           print("input invalid")
+def login():
+    username=input("Enter usename : ")
+    passwd=input("Enter ur password : ")
+    info=read_json(file_name)
+    for user in info:
+        if user["username"]==username and user["password"]==passwd:
+            print("Hello admin :) ")
+            exit()
+    print("Email or password inccorect")
+    try:
+        choix=input("Did u forget ur passwd y/n ...")
+    except ValueError:
+        print("invalid input")
+    if choix=="y":
+        return reset_passwd()
+    elif choix=="n":
+        return
+def reset_passwd():
+    try:
+        code=int(input("Enter ur verification code : "))
+    except ValueError:
+        print("invalid input")
+        return
+    info=read_json(file_name)
+    for user in info:
+        if user["verif-code"]==code:
+            try:
+                user["password"] = input("enter new password : ")
+            except ValueError:
+                print("input invalid")
+                return
+            write_json(file_name, info)
+            print("Password updated successfully!")
+            return
+    print("User not found :( ")
+def create_account():
+    while True:
+        username=input("Enter usename : ")
+        passwd=input("Enter ur password : ")
+        code=random.randint(100000,999999)
+        is_exist=False
+        users=read_json(file_name)
+        for user in users:
+            if user['username']==username:
+                is_exist=True
+        if is_exist:
+            print("Username already exist :) ")
+        elif username.isalpha():
+           info=read_json(file_name)
+           new_info={"username":username,"password":passwd,"verif-code":code}
+           info.append(new_info)
+           write_json(file_name,info)
+           return new_info
+        else:
+            print("username must only have letters")
+def main():
+    while True:
+        choix=show_menu()
+        if choix==0 :
+           print("Are u leaving :) ")
+           break
+        elif choix==1:
+           login()
+        elif choix==2:
+           user=create_account()
+           print(f"{user['username']} ur account has been created this is ur verification code {user['verif-code']}")
+           print("Don't forget it !!!!! took a screen :) ")
+main()
+>>>>>>> 6fe5e16c0018c0e8eea1defcc7986d665244c9f7
