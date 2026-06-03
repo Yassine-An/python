@@ -872,58 +872,58 @@ merge.close()
 #     writercsv.writerow(line)
 #     print
 # fichier.close()
-def addEtudiant():
-    donnes=[]
-    with open("exe.json","r",encoding="utf-8") as fichier:
-        donnes=json.load(fichier)
-    name=input("entrer le nom de l'étudiant : ")
-    age=int(input("entrer l'age de l'étudiant : "))
-    new_donnes={"name":name,"age":age}
-    donnes.append(new_donnes)
-    with open("exe.json","w",encoding="utf-8") as fichier:
-            json.dump(donnes,fichier,indent=4)
-def update():
-    name=input("entrer le nom de l'étudiant : ")
-    with open("exe.json","r",encoding="utf-8") as fichier:
-        donnes=json.load(fichier)
-        for item in donnes:
-            if item["name"]==name:
-                name=input("new name : ")
-                age=int(input("new age : "))
-                item["name"]=name
-                item["age"]=age
-    with open("exe.json","w",encoding="utf-8") as fichier:
-        json.dump(donnes,fichier,indent=4)
-def delete():
-    new_donnes=[]
-    name=input("entrer le nom de l'étudiant : ")
-    with open("exe.json","r",encoding="utf-8") as fichier:
-        donnes=json.load(fichier)
-        for item in donnes :
-            if name!=item["name"]:
-                new_donnes.append(item)
-    with open("exe.json","w",encoding="utf-8") as fichier:
-        json.dump(new_donnes,fichier,indent=4)        
-def affiche():
-    i=1
-    with open("exe.json","r",encoding="utf-8") as fichier:
-        donnes=json.load(fichier)
-    for item in donnes:
-        print(f"etudiant {i} : ",item)
-        i+=1
-while True:
-    print("1_Ajouter Etudiant")
-    print("2_Update")
-    print("3_delete")
-    print("4_afficher")
-    print("0_break")
-    choix=int(input("entrer votre choix : "))
-    match(choix):
-        case 1:addEtudiant()
-        case 2:update()
-        case 3:delete()
-        case 4:affiche()
-        case 0:break
+# def addEtudiant():
+#     donnes=[]
+#     with open("exe.json","r",encoding="utf-8") as fichier:
+#         donnes=json.load(fichier)
+#     name=input("entrer le nom de l'étudiant : ")
+#     age=int(input("entrer l'age de l'étudiant : "))
+#     new_donnes={"name":name,"age":age}
+#     donnes.append(new_donnes)
+#     with open("exe.json","w",encoding="utf-8") as fichier:
+#             json.dump(donnes,fichier,indent=4)
+# def update():
+#     name=input("entrer le nom de l'étudiant : ")
+#     with open("exe.json","r",encoding="utf-8") as fichier:
+#         donnes=json.load(fichier)
+#         for item in donnes:
+#             if item["name"]==name:
+#                 name=input("new name : ")
+#                 age=int(input("new age : "))
+#                 item["name"]=name
+#                 item["age"]=age
+#     with open("exe.json","w",encoding="utf-8") as fichier:
+#         json.dump(donnes,fichier,indent=4)
+# def delete():
+#     new_donnes=[]
+#     name=input("entrer le nom de l'étudiant : ")
+#     with open("exe.json","r",encoding="utf-8") as fichier:
+#         donnes=json.load(fichier)
+#         for item in donnes :
+#             if name!=item["name"]:
+#                 new_donnes.append(item)
+#     with open("exe.json","w",encoding="utf-8") as fichier:
+#         json.dump(new_donnes,fichier,indent=4)        
+# def affiche():
+#     i=1
+#     with open("exe.json","r",encoding="utf-8") as fichier:
+#         donnes=json.load(fichier)
+#     for item in donnes:
+#         print(f"etudiant {i} : ",item)
+#         i+=1
+# while True:
+#     print("1_Ajouter Etudiant")
+#     print("2_Update")
+#     print("3_delete")
+#     print("4_afficher")
+#     print("0_break")
+#     choix=int(input("entrer votre choix : "))
+#     match(choix):
+#         case 1:addEtudiant()
+#         case 2:update()
+#         case 3:delete()
+#         case 4:affiche()
+#         case 0:break
 
 
 
